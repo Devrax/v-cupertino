@@ -1,16 +1,17 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <v-cupertino>
+    <img alt="Vue logo" src="./assets/logo.png">
+  </v-cupertino>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import VCupertino from './components/VCupertino.vue';
 
 export default defineComponent({
   name: 'App',
   components: {
-    HelloWorld
+    VCupertino
   }
 });
 </script>
