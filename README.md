@@ -38,7 +38,7 @@
 
 > ## How to get access to the public method from the instance Cupertino inside the component <v-cupertino />
 
-Theres actually **three** ways to get the instance of `<v-cupertino />` component from its parent container:
+There are actually **three** ways to get the instance of `<v-cupertino />` component from its parent container:
 
 * refs
 * From the instance returned by @did-present event
