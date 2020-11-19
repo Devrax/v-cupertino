@@ -1,18 +1,18 @@
 <template>
   <v-cupertino>
-    <img alt="Vue logo" src="./assets/logo.png">
+    <div>Hola Mundo!</div>
   </v-cupertino>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import VCupertino from './components/VCupertino.vue';
+import { defineComponent } from "vue";
+import VCupertino from "./components/VCupertino.vue";
 
 export default defineComponent({
-  name: 'App',
+  name: "App",
   components: {
-    VCupertino
-  }
+    VCupertino,
+  },
 });
 </script>
 

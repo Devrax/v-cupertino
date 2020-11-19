@@ -1,58 +1,92 @@
 <template>
   <div class="cupertino-container">
-    <slot></slot>
-
-    <div class="cupertino-pane">
-      hola mundo
+    <div class="cupertino-pane" ref="pane">
+      <keep-alive>
+        <component :is="entryComponent"></component>
+      </keep-alive>
+      <slot></slot>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive } from 'vue';
-import { CupertinoPane, CupertinoSettings } from 'cupertino-pane';
+import { defineComponent, onMounted, Ref, ref, watch } from "vue";
+import { CupertinoPane, CupertinoSettings } from "cupertino-pane";
+import { CUPERTINODEFAULTOPTS } from "../utils/constants";
 
 export default defineComponent({
-  name: 'VCupertino',
-  props: ['options'],
-  setup(props) {
+  name: "VCupertino",
+  props: {
+    drawerOptions: {
+      type: Object,
+      default: (): CupertinoSettings => ({ ...CUPERTINODEFAULTOPTS }),
+    },
+    entryAnimation: {
+      type: Boolean,
+      default: true,
+    },
+    entryComponent: {
+      type: Object,
+      default: () => null,
+    },
+  },
+  setup(props, { emit }) {
+    const cupertino: Ref<CupertinoPane | null> = ref(null);
+    const pane: Ref<HTMLDivElement> = ref(document.createElement("div"));
+
+    const staticOpts = {
+      parentElement: ".cupertino-container",
+      onDidDismiss: () => emit("did-dismiss"),
+      onWillDismiss: () => emit("will-dismiss"),
+      onDidPresent: () => emit("did-present", cupertino),
+      onWillPresent: () => emit("will-present", cupertino),
+      onDragStart: () =>
+        emit("drag-start", Math.round(pane.value.getBoundingClientRect().y)),
+      onDrag: () =>
+        emit("drag", Math.round(pane.value.getBoundingClientRect().y)),
+      onDragEnd: () =>
+        emit("drag-end", Math.round(pane.value.getBoundingClientRect().y)),
+      onBackdropTap: () => emit("backdrop-tap"),
+      onTransitionStart: () => emit("transition-start"),
+      onTransitionEnd: () => emit("transition-end"),
+    };
+
+    const initCupertino = (options: CupertinoSettings): CupertinoPane => {
+      cupertino.value = new CupertinoPane(
+        ".cupertino-pane",
+        options
+      ) as CupertinoPane;
+
+      cupertino.value.present({ animate: props.entryAnimation });
+
+      return cupertino.value;
+    };
 
     onMounted(() => {
-      const options = props?.options || {
-        initialBreak: 'bottom',
-        parentElement: '.cupertino-container',
-        breaks: {
-          top: { // Topper point that pane can reach
-            enabled: true, // Enable or disable breakpoint
-            height: 700, // Pane breakpoint height
-            bounce: true // Bounce pane on transition
-          },
-          middle: {
-            enabled: true, // Enable or disable breakpoint
-            height: 400, // Pane breakpoint height
-            bounce: true // Bounce pane on transition
-          },
-          bottom: { 
-            enabled: true, // Enable or disable breakpoint
-            height: 200, // Pane breakpoint height
-            bounce: true // Bounce pane on transition
-          }
-        }
-      };
+      initCupertino({
+        ...props.drawerOptions,
+        ...staticOpts,
+      } as CupertinoSettings);
+    });
 
-      const settings: CupertinoSettings = reactive(options);
-      const cupertino: CupertinoPane = new CupertinoPane('.cupertino-pane', settings);
-      cupertino.present({animate: true});
-    })
+    watch(
+      () => props.drawerOptions,
+      () => {
+        (cupertino.value as CupertinoPane).destroy({
+          animate: props.entryAnimation,
+        });
+        setTimeout(
+          () => initCupertino({ ...props.drawerOptions, ...staticOpts }),
+          1000
+        );
+      }
+    );
 
-    return {}
-
-
-  }
+    return {
+      pane,
+      initCupertino,
+      cupertino,
+    };
+  },
 });
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-
-</style>
