@@ -10,7 +10,7 @@
 | props | type | example | comments |
 |-|-|-|-|
 | :drawerOptions ( optional ) | `CupertinoSettings` |  `<v-cupertino :drawerOptions="yourSettingsObject">` | The same as the Cupertinos Options; **constraints** you cannot override cupertino's callbacks even if you specified in the `CupertinoSettings`' Object|
-| :entryAnimation ( optional ) | `Boolean` | `<v-cupertino :entryAnimation="true || false">` | Whether the drawer should present, destroy or hide with a smooth animation |
+| :entryAnimation ( optional ) | `Boolean` | `<v-cupertino :entryAnimation="Boolean">` | Whether the drawer should present, destroy or hide with a smooth animation |
 | :entryComponent ( optional ) | `Component` | `<v-cupertino :entryComponent="Component">` | The component itself use slots, but I think it would be faster to toggle between component from scripts instead of using v-if also components remember their state because are wrapped by `<keep-alive>` tag|
 
 <br>
@@ -21,11 +21,11 @@
 
 
 | events | return | comments |
-| - | - | - | - |
+| - | - | - |
 | @did-dismiss | `() => void` | |
 | @will-dismiss | `() => void` | |
-| @did-present | `() => cupertinoInstance` | **Returns:** the cupertino instance inside the component when the drawer is already visible, this is useful when you need to have access to the instance once is visible  |
-| @will-present | `() => cupertinoInstance` | **Returns:** the cupertino instance inside the component when the drawer will be visible, this is useful when you need to have access to the instance before is visible |
+| @did-present | `() => cupertinoInstance` | **Returns:** the cupertino instance inside the component when the drawer is already visible, this is useful when you need to have access to the instance once is visible  | 
+| @will-present | `() => cupertinoInstance` | **Returns:** the cupertino instance inside the component when the drawer will be visible, this is useful when you need to have access to the instance before is visible | 
 | @drag-start | `() => number` | **Returns:** the property `y` from the method `getBoundingClientRect()` that belongs to the `DOMRect` |
 | @drag | `() => number` | **Returns:** the property `y` from the method `getBoundingClientRect()` that belongs to the `DOMRect` |
 | @drag-end | `() => number` | **Returns:** the property `y` from the method `getBoundingClientRect()` that belongs to the `DOMRect` |
