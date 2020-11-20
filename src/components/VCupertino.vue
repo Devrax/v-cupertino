@@ -10,10 +10,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, Ref, ref, watch } from "vue";
+import { defineComponent, onMounted, PropType, Ref, ref, watch } from "vue";
 import { CupertinoPane, CupertinoSettings } from "cupertino-pane";
 
-export const CUPERTINODEFAULTOPTS: CupertinoSettings = {
+const CUPERTINODEFAULTOPTS: CupertinoSettings = {
     initialBreak: "bottom",
     breaks: {
       middle: {
@@ -33,15 +33,15 @@ export default defineComponent({
   name: "VCupertino",
   props: {
     drawerOptions: {
-      type: Object,
-      default: (): CupertinoSettings => ({ ...CUPERTINODEFAULTOPTS }),
+      type: Object as PropType<CupertinoSettings>,
+      default: (): CupertinoSettings => Object.assign({}, CUPERTINODEFAULTOPTS),
     },
     entryAnimation: {
       type: Boolean,
       default: true,
     },
     entryComponent: {
-      type: Object,
+      type: Object as PropType<unknown>,
       default: () => null,
     },
   },
@@ -78,10 +78,7 @@ export default defineComponent({
     };
 
     onMounted(() => {
-      initCupertino({
-        ...props.drawerOptions,
-        ...staticOpts,
-      } as CupertinoSettings);
+      initCupertino(Object.assign<Partial<CupertinoSettings>, CupertinoSettings>(props.drawerOptions, staticOpts));
     });
 
     watch(
@@ -91,7 +88,7 @@ export default defineComponent({
           animate: props.entryAnimation,
         });
         setTimeout(
-          () => initCupertino({ ...props.drawerOptions, ...staticOpts }),
+          () => initCupertino(Object.assign<Partial<CupertinoSettings>, CupertinoSettings>(props.drawerOptions, staticOpts)),
           1000
         );
       }
