@@ -12,7 +12,22 @@
 <script lang="ts">
 import { defineComponent, onMounted, Ref, ref, watch } from "vue";
 import { CupertinoPane, CupertinoSettings } from "cupertino-pane";
-import { CUPERTINODEFAULTOPTS } from "../utils/constants";
+
+export const CUPERTINODEFAULTOPTS: CupertinoSettings = {
+    initialBreak: "bottom",
+    breaks: {
+      middle: {
+        enabled: true,
+        height: 500,
+        bounce: true,
+      },
+      bottom: {
+        enabled: true,
+        height: 100,
+        bounce: true,
+      },
+    },
+  };
 
 export default defineComponent({
   name: "VCupertino",
