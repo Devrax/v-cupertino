@@ -4,6 +4,13 @@
 
 > ## How works
 
+## Slot
+
+The component just have one simple slot where you can easily put one or multiple components (by wrapping it in a template or wrap element like a div), doesn't have any special v-slots, any component or html element used will fallback into v-slot:default.
+
+<br>
+<br>
+
 ## **Props**
 | props | type | example | comments |
 |-|-|-|-|
