@@ -97,7 +97,7 @@ export default defineComponent({
 <br>
 
 # License
-Licensed under the MIT License. [View original LICENSE](https://github.com/roman-rr/cupertino-pane/blob/master/LICENSE)
+Licensed under the MIT License. [View original LICENSE](https://github.com/roman-rr/cupertino-pane/blob/master/LICENSE) [Project's LICENSE](/LICENSE)
 
 Lol, that's all, thanks
 
