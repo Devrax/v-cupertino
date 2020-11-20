@@ -28,9 +28,6 @@
     ]
   },
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint",
     "build:rollup": "rollup -c",
     "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
     "build:umd": "rollup --config rollup.config.js --format umd --file dist/v-cupertino.umd.js",
