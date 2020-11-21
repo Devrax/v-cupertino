@@ -44,6 +44,10 @@ export default defineComponent({
       type: Object as PropType<unknown>,
       default: () => null,
     },
+    isPresent: {
+      type: Boolean,
+      default: true
+    }
   },
   setup(props, { emit }) {
     const cupertino: Ref<CupertinoPane | null> = ref(null);
@@ -72,7 +76,7 @@ export default defineComponent({
         options
       ) as CupertinoPane;
 
-      cupertino.value.present({ animate: props.entryAnimation });
+      if(props.isPresent) cupertino.value.present({ animate: props.entryAnimation });
 
       return cupertino.value;
     };
@@ -93,6 +97,15 @@ export default defineComponent({
         );
       }
     );
+
+    watch(
+      () => props.isPresent,
+      () => {
+        props.isPresent 
+        ? (cupertino.value as CupertinoPane).present({ animate: props.entryAnimation }) 
+        : (cupertino.value as CupertinoPane).hide();
+      }
+    )
 
     return {
       pane,
