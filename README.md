@@ -1,10 +1,22 @@
 # [Cupertino Pane](https://github.com/roman-rr/cupertino-pane#cupertino-pane) for Vue 3
 
-<img src="https://img.shields.io/badge/vuejs%20-%2335495e.svg?&style=for-the-badge&logo=vue.js&logoColor=%234FC08D"/> <img src="https://img.shields.io/badge/typescript%20-%23007ACC.svg?&style=for-the-badge&logo=typescript&logoColor=white"/> <img src="https://img.shields.io/badge/github%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
+<img src="https://img.shields.io/badge/vuejs%20-%2335495e.svg?&style=for-the-badge&logo=vue.js&logoColor=%234FC08D"/> <img src="https://img.shields.io/badge/typescript%20-%23007ACC.svg?&style=for-the-badge&logo=typescript&logoColor=white"/> <img src="https://img.shields.io/badge/github%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/> <img src="https://img.shields.io/badge/javascript%20-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/>
 
-> ## How works
+> # Installation
 
-## Slot
+Actually kinda easy
+
+```sh
+  npm i -D v-cupertino
+```
+
+> # How works
+
+### _**Example**_
+
+![Example](assets/component-example.gif)
+
+## **Slot**
 
 The component just have one simple slot where you can easily put one or multiple components (by wrapping it in a template or wrap element like a div), doesn't have any special v-slots, any component or html element used will fallback into v-slot:default.
 
@@ -41,9 +53,9 @@ The component just have one simple slot where you can easily put one or multiple
 <br>
 <br>
 
-> ## How to get access to the public method from the instance Cupertino inside the component <v-cupertino />
+> ## How to get access to the **public method** from the Cupertino Instance inside the component `<v-cupertino />`
 
-There are actually **three** ways to get the instance of `<v-cupertino />` component from its parent container:
+There are actually **three** ways to get the instance from `<v-cupertino />` component from its parent container:
 
 * refs
 * From the instance returned by @did-present event
@@ -98,6 +110,10 @@ export default defineComponent({
 ```
 
 <br>
+<br>
+
+  **Notes:** In case you need more information about the library, remember that this is only a wrapper, for more information go to the oficial [Cupertino Pane library](https://github.com/roman-rr/cupertino-pane/blob/master/README.md).
+
 <br>
 <br>
 
