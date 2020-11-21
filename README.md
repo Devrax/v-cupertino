@@ -20,6 +20,15 @@ Actually kinda easy
 
 The component just have one simple slot where you can easily put one or multiple components (by wrapping it in a template or wrap element like a div), doesn't have any special v-slots, any component or html element used will fallback into v-slot:default.
 
+```html
+  <template>
+    <v-cupertino>
+      <div>Hola mundo!<div>
+      <div>Adiós mundo cruel!</div>
+    <v-cupertino>
+  </template>
+```
+
 <br>
 <br>
 
@@ -29,6 +38,7 @@ The component just have one simple slot where you can easily put one or multiple
 | :drawerOptions ( optional ) | `CupertinoSettings` |  `<v-cupertino :drawerOptions="yourSettingsObject">` | The same as the Cupertinos Options; **constraints** you cannot override cupertino's callbacks even if you specified in the `CupertinoSettings`' Object|
 | :entryAnimation ( optional ) | `Boolean` | `<v-cupertino :entryAnimation="Boolean">` | Whether the drawer should present, destroy or hide with a smooth animation |
 | :entryComponent ( optional ) | `Component` | `<v-cupertino :entryComponent="Component">` | The component itself use slots, but I think it would be faster to toggle between component from scripts instead of using v-if also components remember their state because are wrapped by `<keep-alive>` tag|
+|:isPresent | Boolean | `<v-cupertino :entryComponent="Component">` | Whether the component should be present or hide, when initialize; **default:** true |
 
 <br>
 <br>
@@ -65,9 +75,78 @@ There are actually **three** ways to get the instance from `<v-cupertino />` com
 
 ![ref](assets/ref_example_x1.svg)
 
+> Sample code
+
+```html
+<template>
+  <v-cupertino ref="cupertinoRef">
+    <div>Hola mundo!<div>
+  <v-cupertino>
+</template>
+
+<script lang="ts">
+  import { CupertinoPane } from "cupertino-pane";
+  import { defineComponent, onMounted, ref, Ref } from "vue";
+  import VCupertino from "./components/VCupertino.vue";
+
+  export default defineComponent({
+    name: "App",
+    components: {
+      VCupertino,
+    },
+    setup() {
+      const cupertinoRef: Ref<typeof VCupertino> = ref(VCupertino);
+
+      onMounted(() => {
+        const cupertino = cupertinoRef.value.cupertino as CupertinoPane;
+        cupertino.setDarkMode({ enable: true });
+        console.log(cupertino);
+      });
+
+      return {
+        cupertinoRef,
+      };
+    },
+  });
+</script>
+
+```
+
 ### **Getting the instance from @did-present or @will-present event**
 
 ![ref](assets/event_example_x1.svg)
+> Sample code
+
+```html
+<template>
+  <v-cupertino @did-present="hook">
+    <div>Hola mundo!<div>
+  <v-cupertino>
+</template>
+
+<script lang="ts">
+  import { CupertinoPane } from "cupertino-pane";
+  import { defineComponent, onMounted, ref, Ref } from "vue";
+  import VCupertino from "./components/VCupertino.vue";
+
+  export default defineComponent({
+    name: "App",
+    components: {
+      VCupertino,
+    },
+    setup() {
+      const hook = ({ value }: Ref<CupertinoPane>) => {
+        console.log(value);
+      }
+
+      return {
+        hook,
+      };
+    },
+  });
+</script>
+
+```
 
 <br>
 <br>
