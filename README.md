@@ -12,9 +12,6 @@ Actually kinda easy
 
 > # How works
 
-### _**Example**_
-
-![Example](assets/component-example.gif)
 
 ## **Slot**
 
@@ -73,8 +70,6 @@ There are actually **three** ways to get the instance from `<v-cupertino />` com
 
 ### **Getting the instance with refs**
 
-![ref](assets/ref_example_x1.svg)
-
 > Sample code
 
 ```html
@@ -114,7 +109,6 @@ There are actually **three** ways to get the instance from `<v-cupertino />` com
 
 ### **Getting the instance from @did-present or @will-present event**
 
-![ref](assets/event_example_x1.svg)
 > Sample code
 
 ```html
