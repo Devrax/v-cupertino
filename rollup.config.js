@@ -15,14 +15,22 @@ export default {
       file: packageJson.main,
       name: 'VCupertino',
       exports: 'named',
-      sourcemap: true
+      sourcemap: true,
+      globals: {
+        'vue': 'vue',
+        'cupertino-pane': 'cupertinoPane'
+      }
     },
     {
       format: "esm",
       file: packageJson.module,
       name: 'VCupertino',
       exports: 'named',
-      sourcemap: true
+      sourcemap: true,
+      globals: {
+        'vue': 'vue',
+        'cupertino-pane': 'cupertinoPane'
+      }
     }
   ],
   plugins: [
