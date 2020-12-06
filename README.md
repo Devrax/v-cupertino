@@ -28,6 +28,18 @@ The component just have one simple slot where you can easily put one or multiple
       <div>Adiós mundo cruel!</div>
     <v-cupertino>
   </template>
+
+  <script lang="ts">
+    import { defineComponent } from "vue";
+    import VCupertino from "v-cupertino";
+
+    export default defineComponent({
+      name: "App",
+      components: {
+        VCupertino
+      }
+    })
+  </script>
 ```
 
 <br>
