@@ -1,6 +1,6 @@
 <template>
-  <div class="cupertino-container">
-    <div class="cupertino-pane" ref="pane">
+  <div :class="containerClass">
+    <div :class="targetClass" ref="pane">
       <keep-alive>
         <component :is="entryComponent"></component>
       </keep-alive>
@@ -10,32 +10,57 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, Ref, ref, watch } from "vue";
+import { defineComponent, onMounted, PropType, Ref, ref, watch } from "vue";
 import { CupertinoPane, CupertinoSettings } from "cupertino-pane";
-import { CUPERTINODEFAULTOPTS } from "../utils/constants";
+
+const CUPERTINODEFAULTOPTS: CupertinoSettings = {
+    initialBreak: "bottom",
+    breaks: {
+      middle: {
+        enabled: true,
+        height: 500,
+        bounce: true,
+      },
+      bottom: {
+        enabled: true,
+        height: 100,
+        bounce: true,
+      },
+    },
+  };
 
 export default defineComponent({
   name: "VCupertino",
   props: {
     drawerOptions: {
-      type: Object,
-      default: (): CupertinoSettings => ({ ...CUPERTINODEFAULTOPTS }),
+      type: Object as PropType<CupertinoSettings>,
+      default: (): CupertinoSettings => Object.assign({}, CUPERTINODEFAULTOPTS),
     },
     entryAnimation: {
       type: Boolean,
       default: true,
     },
     entryComponent: {
-      type: Object,
+      type: Object as PropType<unknown>,
       default: () => null,
     },
+    isPresent: {
+      type: Boolean,
+      default: true
+    },
+    id: {
+      type: [String, Number],
+      default: ''
+    }
   },
   setup(props, { emit }) {
     const cupertino: Ref<CupertinoPane | null> = ref(null);
     const pane: Ref<HTMLDivElement> = ref(document.createElement("div"));
+    const containerClass = `cupertino-container${props.id ? '-' + props.id : props.id}`;
+    const targetClass = `cupertino-pane${props.id ? '-' + props.id : props.id}`;
 
     const staticOpts = {
-      parentElement: ".cupertino-container",
+      parentElement: `.${containerClass}`,
       onDidDismiss: () => emit("did-dismiss"),
       onWillDismiss: () => emit("will-dismiss"),
       onDidPresent: () => emit("did-present", cupertino),
@@ -53,20 +78,17 @@ export default defineComponent({
 
     const initCupertino = (options: CupertinoSettings): CupertinoPane => {
       cupertino.value = new CupertinoPane(
-        ".cupertino-pane",
+        `.${targetClass}`,
         options
       ) as CupertinoPane;
 
-      cupertino.value.present({ animate: props.entryAnimation });
+      if(props.isPresent) cupertino.value.present({ animate: props.entryAnimation });
 
       return cupertino.value;
     };
 
     onMounted(() => {
-      initCupertino({
-        ...props.drawerOptions,
-        ...staticOpts,
-      } as CupertinoSettings);
+      initCupertino(Object.assign<Partial<CupertinoSettings>, CupertinoSettings>(props.drawerOptions, staticOpts));
     });
 
     watch(
@@ -76,16 +98,27 @@ export default defineComponent({
           animate: props.entryAnimation,
         });
         setTimeout(
-          () => initCupertino({ ...props.drawerOptions, ...staticOpts }),
+          () => initCupertino(Object.assign<Partial<CupertinoSettings>, CupertinoSettings>(props.drawerOptions, staticOpts)),
           1000
         );
       }
     );
 
+    watch(
+      () => props.isPresent,
+      () => {
+        props.isPresent 
+        ? (cupertino.value as CupertinoPane).present({ animate: props.entryAnimation }) 
+        : (cupertino.value as CupertinoPane).hide();
+      }
+    )
+
     return {
       pane,
       initCupertino,
       cupertino,
+      containerClass,
+      targetClass
     };
   },
 });

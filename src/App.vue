@@ -1,7 +1,11 @@
 <template>
   <div>
     <h1>Welcome!</h1>
-    <v-cupertino>
+    <v-cupertino :id="2">
+      <div style="color: #2c3e50;">Hola Mundo!</div>
+    </v-cupertino>
+
+    <v-cupertino :drawerOptions="{inverse: true}">
       <div style="color: #2c3e50;">Hola Mundo!</div>
     </v-cupertino>
   </div>
