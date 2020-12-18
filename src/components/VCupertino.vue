@@ -1,6 +1,6 @@
 <template>
-  <div class="cupertino-container">
-    <div class="cupertino-pane" ref="pane">
+  <div :class="containerClass">
+    <div :class="targetClass" ref="pane">
       <keep-alive>
         <component :is="entryComponent"></component>
       </keep-alive>
@@ -47,14 +47,20 @@ export default defineComponent({
     isPresent: {
       type: Boolean,
       default: true
+    },
+    id: {
+      type: [String, Number],
+      default: ''
     }
   },
   setup(props, { emit }) {
     const cupertino: Ref<CupertinoPane | null> = ref(null);
     const pane: Ref<HTMLDivElement> = ref(document.createElement("div"));
+    const containerClass = `cupertino-container${props.id ? '-' + props.id : props.id}`;
+    const targetClass = `cupertino-pane${props.id ? '-' + props.id : props.id}`;
 
     const staticOpts = {
-      parentElement: ".cupertino-container",
+      parentElement: `.${containerClass}`,
       onDidDismiss: () => emit("did-dismiss"),
       onWillDismiss: () => emit("will-dismiss"),
       onDidPresent: () => emit("did-present", cupertino),
@@ -72,7 +78,7 @@ export default defineComponent({
 
     const initCupertino = (options: CupertinoSettings): CupertinoPane => {
       cupertino.value = new CupertinoPane(
-        ".cupertino-pane",
+        `.${targetClass}`,
         options
       ) as CupertinoPane;
 
@@ -111,6 +117,8 @@ export default defineComponent({
       pane,
       initCupertino,
       cupertino,
+      containerClass,
+      targetClass
     };
   },
 });

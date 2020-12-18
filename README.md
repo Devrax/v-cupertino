@@ -48,7 +48,7 @@ The component just have one simple slot where you can easily put one or multiple
 | :drawerOptions ( optional ) | `CupertinoSettings` |  `<v-cupertino :drawerOptions="yourSettingsObject">` | The same as the Cupertinos Options; **constraints** you cannot override cupertino's callbacks even if you specified in the `CupertinoSettings`' Object|
 | :entryAnimation ( optional ) | `Boolean` | `<v-cupertino :entryAnimation="Boolean">` | Whether the drawer should present, destroy or hide with a smooth animation |
 | :entryComponent ( optional ) | `Component` | `<v-cupertino :entryComponent="Component">` | The component itself use slots, but I think it would be faster to toggle between component from scripts instead of using v-if also components remember their state because are wrapped by `<keep-alive>` tag|
-|:isPresent | Boolean | `<v-cupertino :entryComponent="Component">` | Whether the component should be present or hide, when initialize; **default:** true |
+|:isPresent | Boolean | `<v-cupertino :entryComponent="Component">` | Whether the component should be present or hide, when initialize; **default:** true | |:id | Number &#124; String | `<v-cupertino :id="2">` | If you have multiples v-cupertino components in the same app that might be working in the same time could crash the library cupertino-pane due that all of them are using the same selector class to create a new pane, using custom id, will allow you to use multiples v-cupertino components as much as you want |
 
 <br>
 <br>
