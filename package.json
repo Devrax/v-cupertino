@@ -1,6 +1,6 @@
 {
   "name": "v-cupertino",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "license": "MIT",
   "private": false,
   "main": "dist/v-cupertino.umd.js",
@@ -34,7 +34,7 @@
     "build:unpkg": "rollup --config rollup.config.js --format iife --file dist/v-cupertino.min.js"
   },
   "dependencies": {
-    "cupertino-pane": "^1.2.2"
+    "cupertino-pane": "^1.2.3"
   },
   "devDependencies": {
     "core-js": "^3.6.5",
@@ -53,7 +53,7 @@
   },
   "peerDependencies": {
     "vue": "^3.0.2",
-    "cupertino-pane": "^1.2.2"
+    "cupertino-pane": "^1.2.3"
   },
   "description": "A Vue 3 Wrapper for Cupertino Pane Library",
   "files": [
