@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "cupertino-pane": "^1.1.93",
+    "cupertino-pane": "1.2.4",
     "vue": "^3.0.0"
   },
   "devDependencies": {
