@@ -8,7 +8,7 @@
 Actually kinda easy
 
 ```sh
-  npm i -D v-cupertino
+  npm i v-cupertino
 ```
 
 > # How works
